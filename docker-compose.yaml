@@ -64,5 +64,30 @@ services:
     networks:
       - inventory-flow
 
+  products:
+    build:
+      context: ./products
+      dockerfile: Dockerfile
+    container_name: products
+    environment:
+      HOST_PRODUCTS_PORT: ${HOST_PRODUCTS_PORT}
+      CONTAINER_PRODUCTS_PORT: 8080
+      MONGODB_HOST: mongodb
+      MONGODB_PORT: 27017
+      MONGODB_NAME: ${MONGODB_NAME}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_EXPIRATION: ${REDIS_EXPIRATION}
+      AUTHENTICATION_HOST: authentication
+      AUTHENTICATION_PORT: 8080
+    depends_on:
+      - mongodb
+      - redis
+      - authentication
+    ports:
+      - '${HOST_PRODUCTS_PORT}:8080'
+    networks:
+      - inventory-flow
+
 networks:
   inventory-flow:
