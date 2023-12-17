@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - '${HOST_MYSQL_PORT}:3306'
+    restart: always
+    networks:
+      - inventory-flow
+
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    ports:
+      - '${HOST_MONGODB_PORT}:27017'
+    restart: always
+    networks:
+      - inventory-flow
+
+  redis:
+    image: redis:7.0
+    container_name: redis
+    ports:
+      - '${HOST_REDIS_PORT}:6379'
+    restart: always
+    networks:
+      - inventory-flow
+
+  authentication:
+    build:
+      context: ./authentication
+      dockerfile: Dockerfile
+    container_name: authentication
+    environment:
+      HOST_AUTHENTICATION_PORT: ${HOST_AUTHENTICATION_PORT}
+      CONTAINER_AUTHENTICATION_PORT: 8080
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MONGODB_HOST: mongodb
+      MONGODB_PORT: 27017
+      MONGODB_NAME: ${MONGODB_NAME}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_EXPIRATION: ${REDIS_EXPIRATION}
+      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
+      REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
+      ACCESS_TOKEN_EXPIRATION: ${ACCESS_TOKEN_EXPIRATION}
+    depends_on:
+      - mysql
+      - mongodb
+      - redis
+    ports:
+      - '${HOST_AUTHENTICATION_PORT}:8080'
+    networks:
+      - inventory-flow
+
+networks:
+  inventory-flow:
