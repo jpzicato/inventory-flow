@@ -26,6 +26,6 @@ export const runRedisConnection = async () => {
 
     logger.error(errorMessage);
 
-    throw new Error(errorMessage);
+    throw errorMessage;
   }
 };

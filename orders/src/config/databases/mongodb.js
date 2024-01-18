@@ -22,6 +22,6 @@ export default async () => {
 
     logger.error(errorMessage);
 
-    throw new Error(errorMessage);
+    throw errorMessage;
   }
 };

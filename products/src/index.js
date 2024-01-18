@@ -8,20 +8,16 @@ import runSeed from './seed';
 const { HOST_PRODUCTS_PORT, CONTAINER_PRODUCTS_PORT } = envVariables;
 
 const runApp = async () => {
-  try {
-    await runMongoDBConnection();
-    await runRedisConnection();
+  await runMongoDBConnection();
+  await runRedisConnection();
 
-    await runSeed();
+  await runSeed();
 
-    app.listen(CONTAINER_PRODUCTS_PORT, () =>
-      logger.info(
-        `Server listening on URL http://localhost:${HOST_PRODUCTS_PORT}`
-      )
-    );
-  } catch (error) {
-    throw new Error(error);
-  }
+  app.listen(CONTAINER_PRODUCTS_PORT, () =>
+    logger.info(
+      `Server listening on URL http://localhost:${HOST_PRODUCTS_PORT}`
+    )
+  );
 };
 
 runApp();

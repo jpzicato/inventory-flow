@@ -32,6 +32,6 @@ export const runMysqlConnection = async () => {
 
     logger.error(errorMessage);
 
-    throw new Error(errorMessage);
+    throw errorMessage;
   }
 };

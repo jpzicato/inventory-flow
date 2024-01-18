@@ -24,15 +24,11 @@ const createCollection = async ({ name, data }, model) => {
 
     logger.error(errorMessage);
 
-    throw new Error(errorMessage);
+    throw errorMessage;
   }
 };
 
 export default async () => {
-  try {
-    await createCollection(categories, Category);
-    await createCollection(products, Product);
-  } catch (error) {
-    throw new Error(error);
-  }
+  await createCollection(categories, Category);
+  await createCollection(products, Product);
 };
