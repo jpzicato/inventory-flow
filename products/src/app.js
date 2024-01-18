@@ -9,7 +9,7 @@ import verifyUserCredentials from './middlewares/verifyUserCredentials';
 import { serve, setup } from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import envVariables from './config/envVariables';
-import cors from 'cors';
+import corsMiddleware from './middlewares/cors';
 
 const { HOST_PRODUCTS_PORT } = envVariables;
 
@@ -32,7 +32,7 @@ const openapiSpecification = swaggerJsdoc({
 const app = express();
 
 export default app
-  .use(cors())
+  .use(corsMiddleware)
   .use(json())
   .use(
     urlencoded({
