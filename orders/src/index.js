@@ -11,11 +11,11 @@ const runApp = async () => {
     await runMongoDBConnection();
     await runRedisConnection();
 
-    app.listen(CONTAINER_ORDERS_PORT, () => {
+    app.listen(CONTAINER_ORDERS_PORT, () =>
       logger.info(
         `Server listening on URL http://localhost:${HOST_ORDERS_PORT}`
-      );
-    });
+      )
+    );
   } catch (error) {
     throw new Error(error);
   }

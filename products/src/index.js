@@ -14,11 +14,11 @@ const runApp = async () => {
 
     await runSeed();
 
-    app.listen(CONTAINER_PRODUCTS_PORT, () => {
+    app.listen(CONTAINER_PRODUCTS_PORT, () =>
       logger.info(
         `Server listening on URL http://localhost:${HOST_PRODUCTS_PORT}`
-      );
-    });
+      )
+    );
   } catch (error) {
     throw new Error(error);
   }

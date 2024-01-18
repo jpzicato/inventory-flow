@@ -17,11 +17,11 @@ const runApp = async () => {
 
     await runSeed();
 
-    app.listen(CONTAINER_AUTHENTICATION_PORT, () => {
+    app.listen(CONTAINER_AUTHENTICATION_PORT, () =>
       logger.info(
         `Server listening on URL http://localhost:${HOST_AUTHENTICATION_PORT}`
-      );
-    });
+      )
+    );
   } catch (error) {
     throw new Error(error);
   }
