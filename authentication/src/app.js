@@ -1,4 +1,4 @@
-import express, { json } from 'express';
+import express, { json, urlencoded } from 'express';
 import {
   logRequest,
   notFoundRequest,
@@ -33,6 +33,11 @@ const app = express();
 export default app
   .use(cors())
   .use(json())
+  .use(
+    urlencoded({
+      extended: false,
+    })
+  )
   .use(logRequest)
   .use('/', routes)
   .use('/docs', serve, setup(openapiSpecification))
