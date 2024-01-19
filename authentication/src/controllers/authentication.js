@@ -4,7 +4,7 @@ import {
   passwordMatchValidation,
   refreshTokenValidation,
 } from '../validators/authentication';
-import { handleValidatorError } from '../utils/errorHelpers';
+import { handleValidationError } from '../utils/errorHelpers';
 import envVariables from '../config/envVariables';
 
 const { REFRESH_TOKEN_SECRET } = envVariables;
@@ -13,7 +13,7 @@ export const signUp = async ({ body }, res, next) => {
   try {
     const { password, repeat_password } = body;
 
-    const errorMessage = handleValidatorError(passwordMatchValidation, {
+    const errorMessage = handleValidationError(passwordMatchValidation, {
       password,
       repeat_password,
     });
@@ -32,7 +32,7 @@ export const signUp = async ({ body }, res, next) => {
 
 export const logIn = async ({ body: { email, password } }, res, next) => {
   try {
-    const errorMessage = handleValidatorError(logInValidation, {
+    const errorMessage = handleValidationError(logInValidation, {
       email,
       password,
     });
@@ -78,7 +78,7 @@ export const renewAccessToken = async (
   next
 ) => {
   try {
-    const errorMessage = handleValidatorError(refreshTokenValidation, {
+    const errorMessage = handleValidationError(refreshTokenValidation, {
       refresh_token,
     });
 
@@ -111,7 +111,7 @@ export const renewAccessToken = async (
 
 export const logOut = async ({ body: { refresh_token } }, res, next) => {
   try {
-    const errorMessage = handleValidatorError(refreshTokenValidation, {
+    const errorMessage = handleValidationError(refreshTokenValidation, {
       refresh_token,
     });
 

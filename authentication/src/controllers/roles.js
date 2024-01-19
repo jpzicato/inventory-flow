@@ -3,7 +3,7 @@ import { redisClient } from '../config/databases/redis';
 import deleteRedisKeys from '../utils/deleteRedisKeys';
 import envVariables from '../config/envVariables';
 import { updateRoleValidation } from '../validators/roles';
-import { handleValidatorError } from '../utils/errorHelpers';
+import { handleValidationError } from '../utils/errorHelpers';
 
 const { REDIS_EXPIRATION } = envVariables;
 
@@ -77,7 +77,7 @@ export const updateRole = async (
   next
 ) => {
   try {
-    const errorMessage = handleValidatorError(updateRoleValidation, body);
+    const errorMessage = handleValidationError(updateRoleValidation, body);
 
     if (errorMessage) return res.status(400).send(errorMessage);
 

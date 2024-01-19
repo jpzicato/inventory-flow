@@ -9,8 +9,8 @@ export const generateErrorMessage = (description, error) => {
   return `${description}: ${error}`;
 };
 
-export const handleValidatorError = (validatorSchema, data) => {
+export const handleValidationError = (validatorSchema, data) => {
   const { error } = validatorSchema.validate(data);
 
-  if (error) return generateErrorMessage('Validator failed', error);
+  if (error) return error.toString();
 };

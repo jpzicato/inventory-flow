@@ -1,6 +1,6 @@
 import { redisClient } from '../config/databases/redis';
 import { Role, Token, User } from '../models';
-import { handleValidatorError } from '../utils/errorHelpers';
+import { handleValidationError } from '../utils/errorHelpers';
 import {
   roleIdValidation,
   updateUserValidation,
@@ -19,7 +19,7 @@ export const getUsers = async (
 ) => {
   try {
     if (page_number || page_size) {
-      const errorMessage = handleValidatorError(usersPaginationValidation, {
+      const errorMessage = handleValidationError(usersPaginationValidation, {
         page_number,
         page_size,
       });
@@ -75,7 +75,7 @@ export const getRoleUsers = async (
 ) => {
   try {
     if (page_number || page_size) {
-      const errorMessage = handleValidatorError(usersPaginationValidation, {
+      const errorMessage = handleValidationError(usersPaginationValidation, {
         page_number,
         page_size,
       });
@@ -168,7 +168,7 @@ export const createUser = async ({ body }, res, next) => {
   try {
     const { role_id } = body;
 
-    const errorMessage = handleValidatorError(roleIdValidation, {
+    const errorMessage = handleValidationError(roleIdValidation, {
       role_id,
     });
 
@@ -214,7 +214,7 @@ export const updateUser = async ({ body, params: { user_id } }, res, next) => {
   try {
     const { password, role_id } = body;
 
-    const errorMessage = handleValidatorError(updateUserValidation, {
+    const errorMessage = handleValidationError(updateUserValidation, {
       password,
       role_id,
     });
