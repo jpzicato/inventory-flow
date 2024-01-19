@@ -1,7 +1,6 @@
 import { connect, connection } from 'mongoose';
 import envVariables from '../envVariables';
 import logger from '../../logs/logger';
-import { generateErrorMessage } from '../../utils/errorHelpers';
 
 const { MONGODB_HOST, MONGODB_PORT, MONGODB_NAME } = envVariables;
 
@@ -15,10 +14,7 @@ export default async () => {
 
     logger.info('Connected to MongoDB');
   } catch (error) {
-    const errorMessage = generateErrorMessage(
-      'Error connecting to MongoDB',
-      error
-    );
+    const errorMessage = `Error connecting to MongoDB: ${error}`;
 
     logger.error(errorMessage);
 

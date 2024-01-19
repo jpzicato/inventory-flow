@@ -1,5 +1,4 @@
 import logger from '../logs/logger';
-import { generateErrorMessage } from '../utils/errorHelpers';
 
 export const logRequest = (req, _res, next) => {
   logger.info(`Request received: ${req.method} ${req.url}`);
@@ -13,7 +12,7 @@ export const notFoundRequest = (_req, res) => {
 
 // eslint-disable-next-line no-unused-vars
 export const errorRequest = (error, _req, res, _next) => {
-  const errorMessage = generateErrorMessage('Request failed', error);
+  const errorMessage = `Request failed: ${error}`;
 
   logger.error(errorMessage);
 

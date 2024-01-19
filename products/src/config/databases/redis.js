@@ -1,6 +1,5 @@
 import { createClient } from 'redis';
 import logger from '../../logs/logger';
-import { generateErrorMessage } from '../../utils/errorHelpers';
 import envVariables from '../envVariables';
 
 const { REDIS_HOST, REDIS_PORT } = envVariables;
@@ -19,10 +18,7 @@ export const runRedisConnection = async () => {
 
     logger.info('Connected to Redis');
   } catch (error) {
-    const errorMessage = generateErrorMessage(
-      'Error connecting to Redis',
-      error
-    );
+    const errorMessage = `Error connecting to Redis: ${error}`;
 
     logger.error(errorMessage);
 

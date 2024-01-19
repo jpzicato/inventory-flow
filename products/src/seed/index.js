@@ -1,4 +1,3 @@
-import { generateErrorMessage } from '../utils/errorHelpers';
 import logger from '../logs/logger';
 import Product from '../models/product';
 import Category from '../models/category';
@@ -17,10 +16,7 @@ const createCollection = async ({ name, data }, model) => {
 
     logger.info(`${name} collection created`);
   } catch (error) {
-    const errorMessage = generateErrorMessage(
-      `${name} collection seeding failed`,
-      error
-    );
+    const errorMessage = `${name} collection seeding failed: ${error}`;
 
     logger.error(errorMessage);
 
