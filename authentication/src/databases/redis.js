@@ -1,7 +1,7 @@
 import { createClient } from 'redis';
-import logger from '../../logs/logger';
-import { generateErrorMessage } from '../../utils/errorHelpers';
-import envVariables from '../envVariables';
+import logger from '../logs/logger';
+import { generateErrorMessage } from '../utils/errorHelpers';
+import envVariables from '../config/envVariables';
 
 const { REDIS_HOST, REDIS_PORT } = envVariables;
 

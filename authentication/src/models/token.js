@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import { mysqlConnection as sequelize } from '../config/databases/mysql';
+import { mysqlConnection as sequelize } from '../databases/mysql';
 import jwt from 'jsonwebtoken';
 import generateToken from '../utils/generateToken';
 

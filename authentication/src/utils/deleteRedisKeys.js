@@ -1,4 +1,4 @@
-import { redisClient } from '../config/databases/redis';
+import { redisClient } from '../databases/redis';
 
 export default async prefix => {
   const redisKeys = await redisClient.keys(`${prefix}*`);

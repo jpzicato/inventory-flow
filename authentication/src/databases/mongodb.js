@@ -1,7 +1,7 @@
 import { connect, connection } from 'mongoose';
-import envVariables from '../envVariables';
-import logger from '../../logs/logger';
-import { generateErrorMessage } from '../../utils/errorHelpers';
+import envVariables from '../config/envVariables';
+import logger from '../logs/logger';
+import { generateErrorMessage } from '../utils/errorHelpers';
 
 const { MONGODB_HOST, MONGODB_PORT, MONGODB_NAME } = envVariables;
 

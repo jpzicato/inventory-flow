@@ -1,4 +1,4 @@
-import { redisClient } from '../config/databases/redis';
+import { redisClient } from '../databases/redis';
 import envVariables from '../config/envVariables';
 import Category from '../models/category';
 import Product from '../models/product';

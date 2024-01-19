@@ -1,5 +1,5 @@
 import { Role } from '../models';
-import { redisClient } from '../config/databases/redis';
+import { redisClient } from '../databases/redis';
 import deleteRedisKeys from '../utils/deleteRedisKeys';
 import envVariables from '../config/envVariables';
 import { updateRoleValidation } from '../validators/roles';

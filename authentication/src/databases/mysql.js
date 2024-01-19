@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
-import envVariables from '../envVariables';
-import logger from '../../logs/logger';
-import { generateErrorMessage } from '../../utils/errorHelpers';
+import envVariables from '../config/envVariables';
+import logger from '../logs/logger';
+import { generateErrorMessage } from '../utils/errorHelpers';
 
 const { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE } =
   envVariables;

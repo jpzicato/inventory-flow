@@ -1,4 +1,4 @@
-import { redisClient } from '../config/databases/redis';
+import { redisClient } from '../databases/redis';
 import { Role, Token, User } from '../models';
 import { handleValidationError } from '../utils/errorHelpers';
 import {

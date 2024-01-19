@@ -1,7 +1,7 @@
 import app from './app';
 import envVariables from './config/envVariables';
-import runMongoDBConnection from './config/databases/mongodb';
-import { runRedisConnection } from './config/databases/redis';
+import runMongoDBConnection from './databases/mongodb';
+import { runRedisConnection } from './databases/redis';
 import logger from './logs/logger';
 
 const { HOST_ORDERS_PORT, CONTAINER_ORDERS_PORT } = envVariables;

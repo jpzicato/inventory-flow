@@ -1,6 +1,6 @@
 import { connect, connection } from 'mongoose';
-import envVariables from '../envVariables';
-import logger from '../../logs/logger';
+import envVariables from '../config/envVariables';
+import logger from '../logs/logger';
 
 const { MONGODB_HOST, MONGODB_PORT, MONGODB_NAME } = envVariables;
 

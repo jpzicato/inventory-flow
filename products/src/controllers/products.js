@@ -1,4 +1,4 @@
-import { redisClient } from '../config/databases/redis';
+import { redisClient } from '../databases/redis';
 import Product from '../models/product';
 import Category from '../models/category';
 import handleValidationError from '../utils/handleValidationError';
