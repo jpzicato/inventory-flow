@@ -3,7 +3,7 @@ import Order from '../models/order';
 import envVariables from '../config/envVariables';
 import deleteRedisKeys from '../utils/deleteRedisKeys';
 import { redisClient } from '../config/databases/redis';
-import { handleValidatorError } from '../utils/errorHelpers';
+import handleValidationError from '../utils/handleValidationError';
 import {
   createOrderValidation,
   ordersPaginationValidation,
@@ -22,7 +22,7 @@ export const getOrders = async (
 ) => {
   try {
     if (page_number || page_size) {
-      const errorMessage = handleValidatorError(ordersPaginationValidation, {
+      const errorMessage = handleValidationError(ordersPaginationValidation, {
         page_number,
         page_size,
       });
@@ -88,7 +88,7 @@ export const getUserOrders = async (
         .send(`User id ${userId} cannot see non-own orders`);
 
     if (page_number || page_size) {
-      const errorMessage = handleValidatorError(ordersPaginationValidation, {
+      const errorMessage = handleValidationError(ordersPaginationValidation, {
         page_number,
         page_size,
       });
@@ -187,7 +187,7 @@ export const getOrderProducts = async (
 ) => {
   try {
     if (page_number || page_size) {
-      const errorMessage = handleValidatorError(ordersPaginationValidation, {
+      const errorMessage = handleValidationError(ordersPaginationValidation, {
         page_number,
         page_size,
       });
@@ -273,7 +273,7 @@ export const createOrder = async (
         .status(403)
         .send('"user_id" field only allowed for administrator users');
 
-    const errorMessage = handleValidatorError(createOrderValidation, {
+    const errorMessage = handleValidationError(createOrderValidation, {
       products,
       user_id,
     });
@@ -329,7 +329,7 @@ export const updateOrder = async (
   next
 ) => {
   try {
-    const errorMessage = handleValidatorError(updateOrderValidation, body);
+    const errorMessage = handleValidationError(updateOrderValidation, body);
 
     if (errorMessage) return res.status(400).send(errorMessage);
 

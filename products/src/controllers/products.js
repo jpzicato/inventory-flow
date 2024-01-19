@@ -1,7 +1,7 @@
 import { redisClient } from '../config/databases/redis';
 import Product from '../models/product';
 import Category from '../models/category';
-import { handleValidatorError } from '../utils/errorHelpers';
+import handleValidationError from '../utils/handleValidationError';
 import {
   categoryIdValidation,
   updateProductValidation,
@@ -22,7 +22,7 @@ export const getProducts = async (
 ) => {
   try {
     if (page_number || page_size) {
-      const errorMessage = handleValidatorError(productsPaginationValidation, {
+      const errorMessage = handleValidationError(productsPaginationValidation, {
         page_number,
         page_size,
       });
@@ -74,7 +74,7 @@ export const getCategoryProducts = async (
 ) => {
   try {
     if (page_number || page_size) {
-      const errorMessage = handleValidatorError(productsPaginationValidation, {
+      const errorMessage = handleValidationError(productsPaginationValidation, {
         page_number,
         page_size,
       });
@@ -166,7 +166,7 @@ export const createProduct = async ({ body }, res, next) => {
   try {
     const { category_id } = body;
 
-    const errorMessage = handleValidatorError(categoryIdValidation, {
+    const errorMessage = handleValidationError(categoryIdValidation, {
       category_id,
     });
 
@@ -209,7 +209,7 @@ export const updateProduct = async (
 
     const { price, stock, category_id } = body;
 
-    const errorMessage = handleValidatorError(updateProductValidation, {
+    const errorMessage = handleValidationError(updateProductValidation, {
       price,
       stock,
       category_id,
@@ -232,7 +232,7 @@ export const updateProduct = async (
     let updatedProduct;
 
     if (quantity) {
-      const errorMessage = handleValidatorError(updateProductStockValidation, {
+      const errorMessage = handleValidationError(updateProductStockValidation, {
         quantity,
       });
 
