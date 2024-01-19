@@ -31,8 +31,8 @@ export const getProducts = async (
     }
 
     const redisKey = `products:${
-      page_number ? `page_number:${page_number}` : ''
-    }${page_number ? ':' : 'all'}${page_size ? `page_size:${page_size}` : ''}`;
+      page_number ? `page_number:${page_number}:page_size:${page_size}` : 'all'
+    }`;
 
     const redisProducts = await redisClient.get(redisKey);
 
@@ -83,8 +83,8 @@ export const getCategoryProducts = async (
     }
 
     const redisKey = `products:category:${category_id}:${
-      page_number ? `page_number:${page_number}` : ''
-    }${page_number ? ':' : 'all'}${page_size ? `page_size:${page_size}` : ''}`;
+      page_number ? `page_number:${page_number}:page_size:${page_size}` : 'all'
+    }`;
 
     const redisProducts = await redisClient.get(redisKey);
 

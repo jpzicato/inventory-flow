@@ -27,9 +27,9 @@ export const getUsers = async (
       if (errorMessage) return res.status(400).send(errorMessage);
     }
 
-    const redisKey = `users:${page_number ? `page_number:${page_number}` : ''}${
-      page_number ? ':' : 'all'
-    }${page_number ? `page_size:${page_size}` : ''}`;
+    const redisKey = `users:${
+      page_number ? `page_number:${page_number}:page_size:${page_size}` : 'all'
+    }`;
 
     const redisUsers = await redisClient.get(redisKey);
 
@@ -84,9 +84,7 @@ export const getRoleUsers = async (
     }
 
     const redisKey = `users:role:${role_id}:${
-      page_number ? `page_number:${page_number}` : ''
-    }${page_number ? ':' : 'all'}${
-      page_number ? `page_size:${page_size}` : ''
+      page_number ? `page_number:${page_number}:page_size:${page_size}` : 'all'
     }`;
 
     const redisUsers = await redisClient.get(redisKey);

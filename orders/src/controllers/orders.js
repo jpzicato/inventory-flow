@@ -32,9 +32,9 @@ export const getOrders = async (
 
     const redisKey = `orders${
       roleId === 1 || roleId === 2 ? '' : `:user:${userId}`
-    }:${page_number ? `page_number:${page_number}` : ''}${
-      page_number ? ':' : 'all'
-    }${page_size ? `page_size:${page_size}` : ''}`;
+    }:${
+      page_number ? `page_number:${page_number}:page_size:${page_size}` : 'all'
+    }`;
 
     const redisOrders = await redisClient.get(redisKey);
 
@@ -97,8 +97,8 @@ export const getUserOrders = async (
     }
 
     const redisKey = `orders:user:${user_id}:${
-      page_number ? `page_number:${page_number}` : ''
-    }${page_number ? ':' : 'all'}${page_size ? `page_size:${page_size}` : ''}`;
+      page_number ? `page_number:${page_number}:page_size:${page_size}` : 'all'
+    }`;
 
     const redisOrders = await redisClient.get(redisKey);
 
@@ -197,9 +197,9 @@ export const getOrderProducts = async (
 
     const redisKey = `order:${order_id}${
       roleId === 1 || roleId === 2 ? '' : `:user:${userId}`
-    }:products:${page_number ? `page_number:${page_number}` : ''}${
-      page_number ? ':' : 'all'
-    }${page_size ? `page_size:${page_size}` : ''}`;
+    }:products:${
+      page_number ? `page_number:${page_number}:page_size:${page_size}` : 'all'
+    }`;
 
     const redisOrder = await redisClient.get(redisKey);
 
