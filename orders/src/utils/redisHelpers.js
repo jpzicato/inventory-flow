@@ -1,4 +1,4 @@
-import { redisClient } from '../databases/redis';
+import { client as redisClient } from '../databases/redis';
 import envVariables from '../config/envVariables';
 
 const { REDIS_EXPIRATION } = envVariables;

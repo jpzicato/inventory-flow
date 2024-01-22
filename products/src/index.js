@@ -1,7 +1,7 @@
 import app from './app';
 import envVariables from './config/envVariables';
 import runMongoDBConnection from './databases/mongodb';
-import { runRedisConnection } from './databases/redis';
+import runRedisConnection from './databases/redis';
 import logger from './logs/logger';
 import runSeed from './seed';
 

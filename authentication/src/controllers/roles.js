@@ -1,5 +1,5 @@
 import { Role } from '../models';
-import { redisClient } from '../databases/redis';
+import { client as redisClient } from '../databases/redis';
 import { deleteRedisKeys, redisSetCommandOptions } from '../utils/redisHelpers';
 import { updateRoleValidation } from '../validators/roles';
 import { handleValidationError } from '../utils/errorHelpers';

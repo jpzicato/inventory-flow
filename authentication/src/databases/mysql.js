@@ -5,7 +5,7 @@ import { generateErrorMessage } from '../utils/errorHelpers';
 
 const { MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE } = envVariables;
 
-export const mysqlConnection = new Sequelize(
+export const connection = new Sequelize(
   MYSQL_DATABASE,
   MYSQL_USER,
   MYSQL_PASSWORD,
@@ -17,10 +17,10 @@ export const mysqlConnection = new Sequelize(
   }
 );
 
-export const runMysqlConnection = async () => {
+export default async () => {
   try {
-    await mysqlConnection.authenticate();
-    await mysqlConnection.sync();
+    await connection.authenticate();
+    await connection.sync();
 
     logger.info('Connected to Mysql');
   } catch (error) {

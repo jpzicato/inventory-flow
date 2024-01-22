@@ -1,4 +1,4 @@
-import { redisClient } from '../databases/redis';
+import { client as redisClient } from '../databases/redis';
 import Category from '../models/category';
 import Product from '../models/product';
 import { deleteRedisKeys, redisSetCommandOptions } from '../utils/redisHelpers';

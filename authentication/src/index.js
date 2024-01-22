@@ -1,9 +1,9 @@
 import app from './app';
 import envVariables from './config/envVariables';
 import logger from './logs/logger';
-import { runMysqlConnection } from './databases/mysql';
+import runMysqlConnection from './databases/mysql';
 import runMongoDBConnection from './databases/mongodb';
-import { runRedisConnection } from './databases/redis';
+import runRedisConnection from './databases/redis';
 import runSeed from './seed';
 
 const { HOST_AUTHENTICATION_PORT } = envVariables;

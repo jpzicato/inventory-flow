@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Order from '../models/order';
 import { deleteRedisKeys, redisSetCommandOptions } from '../utils/redisHelpers';
-import { redisClient } from '../databases/redis';
+import { client as redisClient } from '../databases/redis';
 import handleValidationError from '../utils/handleValidationError';
 import {
   createOrderValidation,
