@@ -5,7 +5,7 @@ import { runRedisConnection } from './databases/redis';
 import logger from './logs/logger';
 import runSeed from './seed';
 
-const { HOST_PRODUCTS_PORT, CONTAINER_PRODUCTS_PORT } = envVariables;
+const { HOST_PRODUCTS_PORT } = envVariables;
 
 const runApp = async () => {
   await runMongoDBConnection();
@@ -13,7 +13,7 @@ const runApp = async () => {
 
   await runSeed();
 
-  app.listen(CONTAINER_PRODUCTS_PORT, () =>
+  app.listen(8080, () =>
     logger.info(
       `Server listening on URL http://localhost:${HOST_PRODUCTS_PORT}`
     )

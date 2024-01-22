@@ -40,17 +40,10 @@ services:
     container_name: authentication
     environment:
       HOST_AUTHENTICATION_PORT: ${HOST_AUTHENTICATION_PORT}
-      CONTAINER_AUTHENTICATION_PORT: 8080
-      MYSQL_HOST: mysql
-      MYSQL_PORT: 3306
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MONGODB_HOST: mongodb
-      MONGODB_PORT: 27017
       MONGODB_NAME: ${MONGODB_NAME}
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
       REDIS_EXPIRATION: ${REDIS_EXPIRATION}
       ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
       REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
@@ -71,15 +64,8 @@ services:
     container_name: products
     environment:
       HOST_PRODUCTS_PORT: ${HOST_PRODUCTS_PORT}
-      CONTAINER_PRODUCTS_PORT: 8080
-      MONGODB_HOST: mongodb
-      MONGODB_PORT: 27017
       MONGODB_NAME: ${MONGODB_NAME}
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
       REDIS_EXPIRATION: ${REDIS_EXPIRATION}
-      AUTHENTICATION_HOST: authentication
-      AUTHENTICATION_PORT: 8080
     depends_on:
       - mongodb
       - redis
@@ -96,17 +82,8 @@ services:
     container_name: orders
     environment:
       HOST_ORDERS_PORT: ${HOST_ORDERS_PORT}
-      CONTAINER_ORDERS_PORT: 8080
-      MONGODB_HOST: mongodb
-      MONGODB_PORT: 27017
       MONGODB_NAME: ${MONGODB_NAME}
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
       REDIS_EXPIRATION: ${REDIS_EXPIRATION}
-      AUTHENTICATION_HOST: authentication
-      AUTHENTICATION_PORT: 8080
-      PRODUCTS_HOST: products
-      PRODUCTS_PORT: 8080
     depends_on:
       - mongodb
       - redis

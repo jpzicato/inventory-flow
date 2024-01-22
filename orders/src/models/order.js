@@ -1,13 +1,5 @@
 import axios from 'axios';
 import { Schema, model } from 'mongoose';
-import envVariables from '../config/envVariables';
-
-const {
-  AUTHENTICATION_HOST,
-  AUTHENTICATION_PORT,
-  PRODUCTS_HOST,
-  PRODUCTS_PORT,
-} = envVariables;
 
 const orderSchema = new Schema(
   {
@@ -52,7 +44,7 @@ orderSchema.static(
 
     for (const { _id, quantity } of products) {
       const { data } = await axios.get(
-        `http://${PRODUCTS_HOST}:${PRODUCTS_PORT}/api/products/${_id}`,
+        `http://products:8080/api/products/${_id}`,
         {
           headers: {
             authorization,
@@ -74,14 +66,11 @@ orderSchema.static(
 );
 
 orderSchema.static('getUser', async function (userId, authorization) {
-  await axios.get(
-    `http://${AUTHENTICATION_HOST}:${AUTHENTICATION_PORT}/users/${userId}`,
-    {
-      headers: {
-        authorization,
-      },
-    }
-  );
+  await axios.get(`http://authentication:8080/users/${userId}`, {
+    headers: {
+      authorization,
+    },
+  });
 });
 
 export default model('Order', orderSchema);

@@ -1,11 +1,8 @@
 import { createClient } from 'redis';
 import logger from '../logs/logger';
-import envVariables from '../config/envVariables';
-
-const { REDIS_HOST, REDIS_PORT } = envVariables;
 
 export const redisClient = createClient({
-  url: `redis://${REDIS_HOST}:${REDIS_PORT}`,
+  url: `redis://redis:6379`,
 });
 
 export const runRedisConnection = async () => {

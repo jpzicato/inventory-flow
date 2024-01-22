@@ -1,7 +1,4 @@
 import axios from 'axios';
-import envVariables from '../config/envVariables';
-
-const { AUTHENTICATION_HOST, AUTHENTICATION_PORT } = envVariables;
 
 export default async (req, _res, next) => {
   try {
@@ -14,7 +11,7 @@ export default async (req, _res, next) => {
     const {
       data: { userId, roleId },
     } = await axios.post(
-      `http://${AUTHENTICATION_HOST}:${AUTHENTICATION_PORT}/authentication/verify-user-credentials`,
+      `http://authentication:8080/authentication/verify-user-credentials`,
       {
         original_method: method,
         original_path: path,

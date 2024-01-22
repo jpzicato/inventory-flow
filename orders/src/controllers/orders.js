@@ -11,9 +11,9 @@ import {
 } from '../validators/orders';
 import verifyObjectIdValidation from '../utils/verifyObjectIdValidation';
 
-const { PRODUCTS_HOST, PRODUCTS_PORT, REDIS_EXPIRATION } = envVariables;
+const { REDIS_EXPIRATION } = envVariables;
 
-const PRODUCTS_URL = `http://${PRODUCTS_HOST}:${PRODUCTS_PORT}/api/products`;
+const PRODUCTS_URL = `http://products:8080/api/products`;
 
 export const getOrders = async (
   { userId, roleId, query: { page_number, page_size } },

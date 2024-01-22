@@ -3,16 +3,15 @@ import envVariables from '../config/envVariables';
 import logger from '../logs/logger';
 import { generateErrorMessage } from '../utils/errorHelpers';
 
-const { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE } =
-  envVariables;
+const { MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE } = envVariables;
 
 export const mysqlConnection = new Sequelize(
   MYSQL_DATABASE,
   MYSQL_USER,
   MYSQL_PASSWORD,
   {
-    host: MYSQL_HOST,
-    port: MYSQL_PORT,
+    host: 'mysql',
+    port: 3306,
     dialect: 'mysql',
     logging: message => logger.debug(message),
   }
