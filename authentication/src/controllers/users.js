@@ -6,7 +6,7 @@ import {
   updateUserValidation,
   usersPaginationValidation,
 } from '../validators/users';
-import deleteRedisKeys from '../utils/deleteRedisKeys';
+import { deleteRedisKeys } from '../utils/redisHelpers';
 import envVariables from '../config/envVariables';
 import { connection } from 'mongoose';
 

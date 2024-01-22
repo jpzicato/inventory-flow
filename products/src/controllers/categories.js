@@ -2,7 +2,7 @@ import { redisClient } from '../databases/redis';
 import envVariables from '../config/envVariables';
 import Category from '../models/category';
 import Product from '../models/product';
-import deleteRedisKeys from '../utils/deleteRedisKeys';
+import { deleteRedisKeys } from '../utils/redisHelpers';
 import verifyObjectIdValidation from '../utils/verifyObjectIdValidation';
 import { Types } from 'mongoose';
 

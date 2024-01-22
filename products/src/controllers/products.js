@@ -9,7 +9,7 @@ import {
   updateProductStockValidation,
 } from '../validators/products';
 import envVariables from '../config/envVariables';
-import deleteRedisKeys from '../utils/deleteRedisKeys';
+import { deleteRedisKeys } from '../utils/redisHelpers';
 import { connection } from 'mongoose';
 import verifyObjectIdValidation from '../utils/verifyObjectIdValidation';
 
