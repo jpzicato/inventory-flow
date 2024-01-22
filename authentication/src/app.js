@@ -10,8 +10,6 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import envVariables from './config/envVariables';
 import corsMiddleware from './middlewares/cors';
 
-const { HOST_AUTHENTICATION_PORT } = envVariables;
-
 const openapiSpecification = swaggerJsdoc({
   definition: {
     openapi: '3.0.0',
@@ -21,7 +19,7 @@ const openapiSpecification = swaggerJsdoc({
     },
     servers: [
       {
-        url: `http://localhost:${HOST_AUTHENTICATION_PORT}`,
+        url: `http://localhost:${envVariables.HOST_AUTHENTICATION_PORT}`,
       },
     ],
   },

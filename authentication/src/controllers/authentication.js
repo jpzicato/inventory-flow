@@ -7,8 +7,6 @@ import {
 import { handleValidationError } from '../utils/errorHelpers';
 import envVariables from '../config/envVariables';
 
-const { REFRESH_TOKEN_SECRET } = envVariables;
-
 export const signUp = async ({ body }, res, next) => {
   try {
     const { password, repeat_password } = body;
@@ -86,7 +84,7 @@ export const renewAccessToken = async (
 
     const user_id = await Token.verifyToken(
       refresh_token,
-      REFRESH_TOKEN_SECRET
+      envVariables.REFRESH_TOKEN_SECRET
     );
 
     const deletedCount = await Token.destroy({

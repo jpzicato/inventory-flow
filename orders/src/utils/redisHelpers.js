@@ -1,10 +1,8 @@
 import { client as redisClient } from '../databases/redis';
 import envVariables from '../config/envVariables';
 
-const { REDIS_EXPIRATION } = envVariables;
-
 export const redisSetCommandOptions = {
-  EX: REDIS_EXPIRATION,
+  EX: envVariables.REDIS_EXPIRATION,
 };
 
 export const deleteRedisKeys = async prefix => {

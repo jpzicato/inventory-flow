@@ -1,8 +1,6 @@
 import { Role, Token, User } from '../models';
 import envVariables from '../config/envVariables';
 
-const { ACCESS_TOKEN_SECRET } = envVariables;
-
 const PERMISSIONS = {
   administrator: ['GET', 'POST', 'PUT', 'DELETE'],
   reader: ['GET'],
@@ -17,7 +15,10 @@ export const authorizeAccessToken = async (req, res, next) => {
 
     if (!accessToken) return res.status(401).send('Access token needed');
 
-    const userId = await Token.verifyToken(accessToken, ACCESS_TOKEN_SECRET);
+    const userId = await Token.verifyToken(
+      accessToken,
+      envVariables.ACCESS_TOKEN_SECRET
+    );
 
     const foundUser = await User.findByPk(userId);
 

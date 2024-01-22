@@ -6,8 +6,6 @@ import runMongoDBConnection from './databases/mongodb';
 import runRedisConnection from './databases/redis';
 import runSeed from './seed';
 
-const { HOST_AUTHENTICATION_PORT } = envVariables;
-
 const runApp = async () => {
   await runMysqlConnection();
   await runMongoDBConnection();
@@ -17,7 +15,7 @@ const runApp = async () => {
 
   app.listen(8080, () =>
     logger.info(
-      `Server listening on URL http://localhost:${HOST_AUTHENTICATION_PORT}`
+      `Server listening on URL http://localhost:${envVariables.HOST_AUTHENTICATION_PORT}`
     )
   );
 };
