@@ -1,12 +1,9 @@
 import { redisClient } from '../databases/redis';
-import envVariables from '../config/envVariables';
 import Category from '../models/category';
 import Product from '../models/product';
-import { deleteRedisKeys } from '../utils/redisHelpers';
+import { deleteRedisKeys, redisSetCommandOptions } from '../utils/redisHelpers';
 import verifyObjectIdValidation from '../utils/verifyObjectIdValidation';
 import { Types } from 'mongoose';
-
-const { REDIS_EXPIRATION } = envVariables;
 
 export const getCategories = async (_req, res, next) => {
   try {
@@ -21,9 +18,11 @@ export const getCategories = async (_req, res, next) => {
     if (!foundCategories.length)
       return res.status(404).send('No categories found');
 
-    await redisClient.set(redisKey, JSON.stringify(foundCategories), {
-      EX: REDIS_EXPIRATION,
-    });
+    await redisClient.set(
+      redisKey,
+      JSON.stringify(foundCategories),
+      redisSetCommandOptions
+    );
 
     res.send(foundCategories);
   } catch (error) {
@@ -46,9 +45,11 @@ export const getCategory = async ({ params: { category_id } }, res, next) => {
 
     if (!foundCategory) return res.status(404).send('Category not found');
 
-    await redisClient.set(redisKey, JSON.stringify(foundCategory), {
-      EX: REDIS_EXPIRATION,
-    });
+    await redisClient.set(
+      redisKey,
+      JSON.stringify(foundCategory),
+      redisSetCommandOptions
+    );
 
     res.send(foundCategory);
   } catch (error) {
@@ -68,9 +69,7 @@ export const createCategory = async ({ body }, res, next) => {
     await redisClient.set(
       `category:${createdCategory._id}`,
       JSON.stringify(createdCategory),
-      {
-        EX: REDIS_EXPIRATION,
-      }
+      redisSetCommandOptions
     );
 
     await redisClient.del('categories');

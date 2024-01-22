@@ -1,11 +1,8 @@
 import { Role } from '../models';
 import { redisClient } from '../databases/redis';
-import { deleteRedisKeys } from '../utils/redisHelpers';
-import envVariables from '../config/envVariables';
+import { deleteRedisKeys, redisSetCommandOptions } from '../utils/redisHelpers';
 import { updateRoleValidation } from '../validators/roles';
 import { handleValidationError } from '../utils/errorHelpers';
-
-const { REDIS_EXPIRATION } = envVariables;
 
 export const getRoles = async (_req, res, next) => {
   try {
@@ -19,9 +16,11 @@ export const getRoles = async (_req, res, next) => {
 
     if (!foundRoles.length) return res.status(404).send('No roles found');
 
-    await redisClient.set(redisKey, JSON.stringify(foundRoles), {
-      EX: REDIS_EXPIRATION,
-    });
+    await redisClient.set(
+      redisKey,
+      JSON.stringify(foundRoles),
+      redisSetCommandOptions
+    );
 
     res.send(foundRoles);
   } catch (error) {
@@ -41,9 +40,11 @@ export const getRole = async ({ params: { role_id } }, res, next) => {
 
     if (!foundRole) return res.status(404).send('Role not found');
 
-    await redisClient.set(redisKey, JSON.stringify(foundRole), {
-      EX: REDIS_EXPIRATION,
-    });
+    await redisClient.set(
+      redisKey,
+      JSON.stringify(foundRole),
+      redisSetCommandOptions
+    );
 
     res.send(foundRole);
   } catch (error) {
@@ -58,9 +59,7 @@ export const createRole = async ({ body }, res, next) => {
     await redisClient.set(
       `role:${createdRole.id}`,
       JSON.stringify(createdRole),
-      {
-        EX: REDIS_EXPIRATION,
-      }
+      redisSetCommandOptions
     );
 
     await redisClient.del('roles');

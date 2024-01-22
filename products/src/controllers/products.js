@@ -8,12 +8,9 @@ import {
   productsPaginationValidation,
   updateProductStockValidation,
 } from '../validators/products';
-import envVariables from '../config/envVariables';
-import { deleteRedisKeys } from '../utils/redisHelpers';
+import { deleteRedisKeys, redisSetCommandOptions } from '../utils/redisHelpers';
 import { connection } from 'mongoose';
 import verifyObjectIdValidation from '../utils/verifyObjectIdValidation';
-
-const { REDIS_EXPIRATION } = envVariables;
 
 export const getProducts = async (
   { query: { page_number, page_size } },
@@ -57,9 +54,11 @@ export const getProducts = async (
       total_items: foundProductsCount,
     };
 
-    await redisClient.set(redisKey, JSON.stringify(response), {
-      EX: REDIS_EXPIRATION,
-    });
+    await redisClient.set(
+      redisKey,
+      JSON.stringify(response),
+      redisSetCommandOptions
+    );
 
     res.send(response);
   } catch (error) {
@@ -126,9 +125,11 @@ export const getCategoryProducts = async (
       total_items: foundProductsCount,
     };
 
-    await redisClient.set(redisKey, JSON.stringify(response), {
-      EX: REDIS_EXPIRATION,
-    });
+    await redisClient.set(
+      redisKey,
+      JSON.stringify(response),
+      redisSetCommandOptions
+    );
 
     res.send(response);
   } catch (error) {
@@ -152,9 +153,11 @@ export const getProduct = async ({ params: { product_id } }, res, next) => {
     if (!foundProduct)
       return res.status(404).send(`Product id ${product_id} not found`);
 
-    await redisClient.set(redisKey, JSON.stringify(foundProduct), {
-      EX: REDIS_EXPIRATION,
-    });
+    await redisClient.set(
+      redisKey,
+      JSON.stringify(foundProduct),
+      redisSetCommandOptions
+    );
 
     res.send(foundProduct);
   } catch (error) {
@@ -185,9 +188,7 @@ export const createProduct = async ({ body }, res, next) => {
     await redisClient.set(
       `product:${createdProduct._id}`,
       JSON.stringify(createdProduct),
-      {
-        EX: REDIS_EXPIRATION,
-      }
+      redisSetCommandOptions
     );
 
     await deleteRedisKeys('products');

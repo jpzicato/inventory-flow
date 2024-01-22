@@ -1,7 +1,6 @@
 import axios from 'axios';
 import Order from '../models/order';
-import envVariables from '../config/envVariables';
-import { deleteRedisKeys } from '../utils/redisHelpers';
+import { deleteRedisKeys, redisSetCommandOptions } from '../utils/redisHelpers';
 import { redisClient } from '../databases/redis';
 import handleValidationError from '../utils/handleValidationError';
 import {
@@ -10,8 +9,6 @@ import {
   updateOrderValidation,
 } from '../validators/orders';
 import verifyObjectIdValidation from '../utils/verifyObjectIdValidation';
-
-const { REDIS_EXPIRATION } = envVariables;
 
 const PRODUCTS_URL = `http://products:8080/api/products`;
 
@@ -66,9 +63,11 @@ export const getOrders = async (
       total_items: foundOrdersCount,
     };
 
-    await redisClient.set(redisKey, JSON.stringify(response), {
-      EX: REDIS_EXPIRATION,
-    });
+    await redisClient.set(
+      redisKey,
+      JSON.stringify(response),
+      redisSetCommandOptions
+    );
 
     res.send(response);
   } catch (error) {
@@ -128,9 +127,11 @@ export const getUserOrders = async (
       total_items: foundOrdersCount,
     };
 
-    await redisClient.set(redisKey, JSON.stringify(response), {
-      EX: REDIS_EXPIRATION,
-    });
+    await redisClient.set(
+      redisKey,
+      JSON.stringify(response),
+      redisSetCommandOptions
+    );
 
     res.send(response);
   } catch (error) {
@@ -164,9 +165,11 @@ export const getOrder = async (
         .status(403)
         .send(`User id ${userId} cannot see non-own orders`);
 
-    await redisClient.set(redisKey, JSON.stringify(foundOrder), {
-      EX: REDIS_EXPIRATION,
-    });
+    await redisClient.set(
+      redisKey,
+      JSON.stringify(foundOrder),
+      redisSetCommandOptions
+    );
 
     res.send(foundOrder);
   } catch (error) {
@@ -250,9 +253,11 @@ export const getOrderProducts = async (
       total_items: foundProductsCount,
     };
 
-    await redisClient.set(redisKey, JSON.stringify(response), {
-      EX: REDIS_EXPIRATION,
-    });
+    await redisClient.set(
+      redisKey,
+      JSON.stringify(response),
+      redisSetCommandOptions
+    );
 
     res.send(response);
   } catch (error) {
@@ -308,9 +313,7 @@ export const createOrder = async (
     await redisClient.set(
       `order:${createdOrder._id}${roleId === 1 ? '' : `:user:${userId}`}`,
       JSON.stringify(createdOrder),
-      {
-        EX: REDIS_EXPIRATION,
-      }
+      redisSetCommandOptions
     );
 
     await deleteRedisKeys('orders');

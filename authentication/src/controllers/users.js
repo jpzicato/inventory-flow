@@ -6,11 +6,8 @@ import {
   updateUserValidation,
   usersPaginationValidation,
 } from '../validators/users';
-import { deleteRedisKeys } from '../utils/redisHelpers';
-import envVariables from '../config/envVariables';
+import { deleteRedisKeys, redisSetCommandOptions } from '../utils/redisHelpers';
 import { connection } from 'mongoose';
-
-const { REDIS_EXPIRATION } = envVariables;
 
 export const getUsers = async (
   { query: { page_number, page_size } },
@@ -58,9 +55,11 @@ export const getUsers = async (
       total_items: count,
     };
 
-    await redisClient.set(redisKey, JSON.stringify(response), {
-      EX: REDIS_EXPIRATION,
-    });
+    await redisClient.set(
+      redisKey,
+      JSON.stringify(response),
+      redisSetCommandOptions
+    );
 
     res.send(response);
   } catch (error) {
@@ -128,9 +127,11 @@ export const getRoleUsers = async (
       total_items: count,
     };
 
-    await redisClient.set(redisKey, JSON.stringify(response), {
-      EX: REDIS_EXPIRATION,
-    });
+    await redisClient.set(
+      redisKey,
+      JSON.stringify(response),
+      redisSetCommandOptions
+    );
 
     res.send(response);
   } catch (error) {
@@ -152,9 +153,11 @@ export const getUser = async ({ params: { user_id } }, res, next) => {
 
     delete foundUser.dataValues.password;
 
-    await redisClient.set(redisKey, JSON.stringify(foundUser), {
-      EX: REDIS_EXPIRATION,
-    });
+    await redisClient.set(
+      redisKey,
+      JSON.stringify(foundUser),
+      redisSetCommandOptions
+    );
 
     res.send(foundUser);
   } catch (error) {
@@ -195,9 +198,7 @@ export const createUser = async ({ body }, res, next) => {
     await redisClient.set(
       `user:${createdUser.id}`,
       JSON.stringify(createdUser),
-      {
-        EX: REDIS_EXPIRATION,
-      }
+      redisSetCommandOptions
     );
 
     await deleteRedisKeys('users');
