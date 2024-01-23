@@ -1,6 +1,6 @@
 # Inventory flow
 
-Inventory flow es una aplicación de seguimiento de inventario basada en microservicios desarrollada en Node.js con el framework Express.js. Cada microservicio se enfoca en una funcionalidad específica, incluyendo la autenticación, la gestión de productos y la gestión de pedidos.
+Inventory flow es una aplicación de seguimiento de inventario basada en microservicios desarrollada en Node.js con el framework Express.js. Cada microservicio se enfoca en una funcionalidad específica incluyendo la autenticación, la gestión de productos y la gestión de pedidos.
 
 ## Microservicios individuales
 
