@@ -30,14 +30,14 @@ const openapiSpecification = swaggerJsdoc({
 const app = express();
 
 export default app
-  .use(corsMiddleware)
-  .use(json())
   .use(
+    corsMiddleware,
+    json(),
     urlencoded({
       extended: false,
-    })
+    }),
+    logRequest
   )
-  .use(logRequest)
   .use('/api', verifyUserCredentials, routes)
   .use('/docs', serve, setup(openapiSpecification))
   .use('/*', notFoundRequest)
