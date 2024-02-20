@@ -1,0 +1,16 @@
+{
+  "name": "inventory-flow",
+  "version": "2.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "lint": "standard --fix",
+    "start": "node index.js"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "3.1.0",
+    "standard": "17.1.0"
+  }
+}
